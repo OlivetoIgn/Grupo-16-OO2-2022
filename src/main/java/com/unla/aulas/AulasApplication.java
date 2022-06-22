@@ -19,4 +19,6 @@ public class AulasApplication {
 		return new BCryptPasswordEncoder();
 	}
 
+
+
 }

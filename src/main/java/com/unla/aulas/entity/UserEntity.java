@@ -33,20 +33,23 @@ public class UserEntity {
     @NotEmpty(message = "*Please provide your password")
     private String password;
 
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "surname")
+    private String surname;
+
+    @Column(name = "document_type")
+    private String documentType;
+
+    @Column(name = "document")
+    private int document;
+
+    @Column(name = "email")
+    private String email;
+
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<RoleEntity> roles;
-
-	public Object getUserName() {
-		return userName;
-	}
-
-	public Object getPassword() {
-		return password;
-	}
-
-	public Set<RoleEntity> getRoles() {
-		return roles;
-	}
 
 }

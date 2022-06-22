@@ -1,7 +1,10 @@
 package com.unla.aulas.controller;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
+import com.unla.aulas.entity.ClassroomEntity;
+import com.unla.aulas.service.ClassroomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,16 +19,13 @@ import com.unla.aulas.entity.ReservationEntity;
 import com.unla.aulas.service.ReservationService;
 
 @RestController
-@RequestMapping("/reservation")
+@RequestMapping("/reservation/")
 public class ReservationController {
-	private ReservationService reservationService; 
-	
-	public ReservationController() {}
-	
 	@Autowired
-	public ReservationController(ReservationService reservationService) {
-		this.reservationService = reservationService;
-	}
+	ReservationService reservationService;
+
+	@Autowired
+	ClassroomService classroomService;
 	
 	@GetMapping()
 	public ArrayList<ReservationEntity> getAll() {
@@ -33,18 +33,12 @@ public class ReservationController {
 	}
 	
 	@PostMapping()
-	public String insertOrUpdate(@RequestBody ReservationDto reservationDto) {
-		boolean response = reservationService.insertOrUpdateReservation(reservationDto);
-		String message;
-		if (!response)
-			message = "Ya existe la reservacion";
-		else
-			message = "Se creo correctamente";
-		return message;
+	public ReservationEntity insertOrUpdate(@RequestBody ReservationEntity reservationDto) {
+		return reservationService.insertOrUpdateReservation(reservationDto);
 	}
 	
 	@GetMapping(path = "{id}")
-	public ReservationEntity getById(@PathVariable("id") int id) {
+	public Optional<ReservationEntity> getById(@PathVariable("id") int id) {
 		return reservationService.getReservationById(id);
 	}
 	
@@ -58,5 +52,13 @@ public class ReservationController {
 			message = "No existe el id " + id;
 		return message;
 	}
-	
+
+	@GetMapping("reservationbyclass")
+	public ArrayList<ReservationEntity> getClassReservations(@RequestBody ReservationEntity reservationEntity) {
+		ClassroomEntity classroomEntity = classroomService.getClassroomEntityById(reservationEntity.getClassroomEntity().getId()).get();
+		if(classroomEntity != null){
+			return reservationService.getReservationByClassroom(classroomEntity);
+		}
+		return null;
+	}
 }

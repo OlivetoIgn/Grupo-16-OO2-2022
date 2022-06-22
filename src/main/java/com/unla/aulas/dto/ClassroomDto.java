@@ -21,7 +21,8 @@ public class ClassroomDto {
 	private int quantityOfChairs;
 	private int quantityOfPC;
 	private boolean blackboard;
-	private BuildingDto building;
     private ClassroomTypeEntity typeSolicitude;
-    private List<ReservationEntity> reservations;
+	public ClassroomDto(int id) {
+		this.id = id;
+	}
 }

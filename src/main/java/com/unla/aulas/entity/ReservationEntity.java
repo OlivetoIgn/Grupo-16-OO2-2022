@@ -1,20 +1,10 @@
 package com.unla.aulas.entity;
 
 
+import java.time.LocalDate;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -37,18 +27,22 @@ public class ReservationEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "reservation_id")
 	private int id;
 
-	@Temporal(TemporalType.DATE)
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
-	@Column(name="date")   
-    private Date date;
+	@Column(name="reservation_date")
+    private LocalDate reservationDate;
 
-	@Column(name="turn")
-	private String turn;
+	@Column(name="shift_type")
+	@Enumerated(value = EnumType.STRING)
+	private ShiftEntity shiftEntity;
+
+	@Column(name = "istaken")
+	private boolean isTaken;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "classroom_id")
-	private ClassroomEntity classroom;
+	private ClassroomEntity classroomEntity;
 
 }

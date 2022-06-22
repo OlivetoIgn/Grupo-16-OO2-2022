@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SubjectRepository extends JpaRepository<SubjectEntity, Integer> {
     public abstract SubjectEntity findBySubject(String subject);
+    public abstract SubjectEntity findBySubjectCode(int subjectCode);
 
-    public abstract SubjectEntity findBySubject(int subjectCode);
 }

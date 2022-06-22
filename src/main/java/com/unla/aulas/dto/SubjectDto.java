@@ -15,4 +15,8 @@ public class SubjectDto {
     private int subjectCode;
     private String subject;
     private CarrerDto carrer;
+
+    public SubjectDto(int id) {
+        this.id = id;
+    }
 }

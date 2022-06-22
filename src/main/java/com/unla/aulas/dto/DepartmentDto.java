@@ -8,6 +8,5 @@ import lombok.*;
 public class DepartmentDto {
 
     private int id;
-
     private String department;
 }

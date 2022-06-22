@@ -20,7 +20,7 @@ public class SubjectEntity {
     private int subjectCode;
     @Column(name = "subject")
     private String subject;
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "carrer_id")
     private CarrerEntity carrer;
 }

@@ -1,6 +1,7 @@
 package com.unla.aulas.controller;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,34 +16,24 @@ import com.unla.aulas.entity.ClassroomEntity;
 import com.unla.aulas.service.ClassroomService;
 
 @RestController
-@RequestMapping("/classroom")
+@RequestMapping("/classroom/")
 public class ClassroomController {
 	@Autowired
-	private ClassroomService classroomService;
-
-	public ClassroomController(ClassroomService classroomService) {
-		this.classroomService = classroomService;
-	}
+	ClassroomService classroomService;
 
 	@GetMapping()
 	public ArrayList<ClassroomEntity> getAll() {
-		return this.classroomService.getAllClassrooms();
+		return classroomService.getAllClassrooms();
 	}
 
 	@PostMapping()
-	public String insertOrUpdate(@RequestBody ClassroomEntity classroomEntity) {
-		boolean response = classroomService.insertOrUpdateClassroom(classroomEntity);
-		String message;
-		if (!response)
-			message = "Ya existe el aula";
-		else
-			message = "Se creo correctamente";
-		return message;
+	public ClassroomEntity insertOrUpdate(@RequestBody ClassroomEntity classroomEntity) {
+		return classroomService.insertOrUpdateClassroom(classroomEntity);
 	}
 
 	@GetMapping(path = "{id}")
-	public ClassroomEntity getById(@PathVariable("id") int id) {
-		return classroomService.getClassroomById(id);
+	public Optional<ClassroomEntity> getById(@PathVariable("id") int id) {
+		return classroomService.getClassroom(id);
 	}
 
 	@DeleteMapping(path = "{id}")

@@ -19,8 +19,5 @@ public class RoleEntity {
     @Column(name = "role_id")
     private int id;
     private String name;
-	public String getName() {
-		return name;
-	}
 
 }

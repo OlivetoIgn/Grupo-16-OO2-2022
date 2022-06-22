@@ -26,8 +26,8 @@ public class SubjectController {
     }
 
     @GetMapping()
-    public ArrayList<SubjectDto> getSubjects(){
-        return subjectService.getSubjects();
+    public ArrayList<SubjectEntity> getSubjects(){
+        return subjectService.getSubjectsEntity();
     }
 
     @GetMapping(path = "{id}")

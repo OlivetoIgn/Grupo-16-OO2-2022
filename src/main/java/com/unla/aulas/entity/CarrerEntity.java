@@ -16,7 +16,7 @@ public class CarrerEntity {
     private int id;
     @Column(name = "carrer")
     private String carrer;
-    @ManyToOne(optional = false, cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "department_id")
     private DepartmentEntity department;
 }

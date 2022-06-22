@@ -58,7 +58,9 @@ public class SubjectService {
     }
 
     public Optional<SubjectEntity> getSubjectByIdEntity(int id){
-        return subjectRepository.findById(id);
+        Optional<SubjectEntity> subjectEntity = subjectRepository.findById(id);
+
+        return subjectEntity.isEmpty() ? null : subjectEntity;
     }
 
     public SubjectDto getSubjectById(int id){
@@ -67,12 +69,16 @@ public class SubjectService {
         return new SubjectDto(subjectEntity.get().getId(), subjectEntity.get().getSubjectCode(), subjectEntity.get().getSubject(), carrerDto);
     }
 
+    public Optional<SubjectEntity> getSubjectEntityById(int id){
+        return subjectRepository.findById(id);
+    }
+
     public SubjectEntity getSubject(String subject){
         return subjectRepository.findBySubject(subject);
     }
 
     public SubjectEntity getSubjectBySubjectCode(int subjectCode){
-        return subjectRepository.findBySubject(subjectCode);
+        return subjectRepository.findBySubjectCode(subjectCode);
     }
 
     public boolean deleteSubject(int id){
